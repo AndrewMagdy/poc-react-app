@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.store = this.store = configureStore(props.initialState || {});
+    this.store = configureStore(props.initialState || {});
   }
   componentDidMount() {
     if (this.props.stateChange) {
