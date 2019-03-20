@@ -1,38 +1,34 @@
 import React, { Component } from "react";
-import XComponent from "./XComponent";
-import YComponent from "./YComponent";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "rc-calendar/dist/rc-calendar.css";
+import RootComponent from "./components/RootComponent";
+import BasketContainer from "./containers/BasketContainer";
+import ItemsListContainer from "./containers/ItemsListContainer";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import { Provider } from "react-redux";
+import configureStore from "./store/configureStore";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.store = this.store = configureStore(props.initialState || {});
+  }
+  componentDidMount() {
+    if (this.props.stateChange) {
+      this.store.subscribe(() => this.props.stateChange(this.store.getState()));
+    }
+  }
+
   render() {
     return (
-      <div>
+      <Provider store={this.store}>
         <Router>
-          <div>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/x/">XComponent</Link>
-                </li>
-                <li>
-                  <Link to="/y/">YComponent</Link>
-                </li>
-                <li>
-                  <Link to="/detail/12/">Angular Test</Link>
-                </li>
-              </ul>
-            </nav>
-
-            <Route path="/y" exact component={YComponent} />
-            <Route path="/x" component={XComponent} />
-            <Route path="/detail/12" component={YComponent} />
-          </div>
+          <Route path="/" component={RootComponent} />
+          <Route path="/basket" exact component={BasketContainer} />
+          <Route path="/items" component={ItemsListContainer} />
+          <Route path="/detail/:x" component={BasketContainer} />
         </Router>
-      </div>
+      </Provider>
     );
   }
 }

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Calendar from "rc-calendar";
 
-class YComponent extends Component {
+class BasketComponent extends Component {
   render() {
     return (
       <div>
-        <h1> YComponent</h1>
+        <h1> BasketComponent</h1>
         <Calendar />
       </div>
     );
   }
 }
 
-export default YComponent;
+export default BasketComponent;
