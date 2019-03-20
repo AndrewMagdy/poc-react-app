@@ -1,25 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import XComponent from "./XComponent";
+import YComponent from "./YComponent";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import "rc-calendar/dist/rc-calendar.css";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Router>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/x/">XComponent</Link>
+                </li>
+                <li>
+                  <Link to="/y/">YComponent</Link>
+                </li>
+                <li>
+                  <Link to="/detail/12/">Angular Test</Link>
+                </li>
+              </ul>
+            </nav>
+
+            <Route path="/y" exact component={YComponent} />
+            <Route path="/x" component={XComponent} />
+            <Route path="/detail/12" component={YComponent} />
+          </div>
+        </Router>
       </div>
     );
   }
