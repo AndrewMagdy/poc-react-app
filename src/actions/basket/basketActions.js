@@ -5,9 +5,9 @@ const addItemSuccess = item => ({
   payload: { item }
 });
 
-const removeItemSuccess = item => ({
+const removeItemSuccess = removedItem => ({
   type: REMOVE_ITEM_SUCCESS,
-  payload: { item }
+  payload: { removedItem }
 });
 
 export const addItem = item => async dispatch => {

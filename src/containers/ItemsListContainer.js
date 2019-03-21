@@ -1,14 +1,15 @@
 import { connect } from "react-redux";
 import ItemsListComponent from "../components/ItemsListComponent";
-import { addItem, removeItem } from "../actions/basket/basketActions";
+import { addItem } from "../actions/basket/basketActions";
+import { loadItems } from "../actions/items/itemsActions";
 
 const mapStateToProps = state => ({
-  basketItems: state.basket.basketItems
+  itemsList: state.items.itemsList,
 });
 
 const mapDispatchToProps = dispatch => ({
-  addItem: item => dispatch(addItem(item)),
-  removeItem: item => dispatch(removeItem(item))
+  addItemToBasket: item => dispatch(addItem(item)),
+  loadItems: () => dispatch(loadItems())
 });
 
 export default connect(

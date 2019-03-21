@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import RootComponent from "./components/RootComponent";
 import BasketContainer from "./containers/BasketContainer";
 import ItemsListContainer from "./containers/ItemsListContainer";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -23,7 +22,8 @@ class App extends Component {
     return (
       <Provider store={this.store}>
         <Router>
-          <Route path="/" component={RootComponent} />
+          <Route path="/" exact component={ItemsListContainer} />
+          <Route path="/dashboard" exact component={ItemsListContainer} />
           <Route path="/basket" exact component={BasketContainer} />
           <Route path="/items" component={ItemsListContainer} />
           <Route path="/detail/:x" component={BasketContainer} />
