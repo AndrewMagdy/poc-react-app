@@ -1,12 +1,11 @@
 {
-  "name": "react-app",
+  "name": "poc-react-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.4.0",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
-    "rc-calendar": "^9.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
