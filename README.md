@@ -1,68 +1,120 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React components inside an Angular host application POC
 
-## Available Scripts
+## General Notes
 
-In the project directory, you can run:
+### Aim
 
-### `npm start`
+_This projects aims to use React Components inside an Angular project.
+The project is based on Microsoft's react-angular project ([Github](https://github.com/Microsoft/angular-react))._
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Components
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### Angular Host project : ([Github repo](https://github.com/AndrewMagdy/angular-project))
 
-### `npm test`
+_An Angular project that hosts both React components and Angular components.
+The angular components are based on Angular io's [example project](https://github.com/angular/angular/tree/master/aio/content/examples/toh-pt6)_
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### The Wrapper project: ([Github repo,](https://github.com/AndrewMagdy/thin-wrapper) [npm package](https://www.npmjs.com/package/poc-react-components))
 
-### `npm run build`
+_A thin wrapper for the React components that maps inputs and outputs between the host Angular component and the child React component._
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### The React project: ([Github repo](https://github.com/AndrewMagdy/poc-react-app), [npm package](https://www.npmjs.com/package/poc-react-app))
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+_A sample React project that can be used as a standalone project, hosted inside another React project or hosted inside an Angular project using the Wrapper._
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation Steps
 
-### `npm run eject`
+Install packages then run
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+yarn
+yarn start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+or
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm install
+npm start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Integrations Steps Walkthrough
 
-## Learn More
+_**These steps are already implented in this project. This is a walkthrough of these steps**_
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Angular Host Project
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Install [angular-react](https://github.com/Microsoft/angular-react), react, react-dom
 
-### Code Splitting
+    yarn add angular-react react react-dom
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+or
 
-### Analyzing the Bundle Size
+     npm install angular-react react react-dom
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Install the React project and the wrapper in our case poc-react-app (React application) and poc-react-components (wrapper)
 
-### Making a Progressive Web App
+    yarn add poc-react-app poc-react-components
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+In Angular’s project app.module import the AngularReactBrowserModule from @angular-react/core and use it instead of Angular’s Browser module
 
-### Advanced Configuration
+```JS
+import { AngularReactBrowserModule } from "@angular-react/core";
+...
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+@NgModule({
+    imports: [
+    AngularReactBrowserModule,
+    ....
+    ]
+})
 
-### Deployment
+],
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```
+In Angular's project app.module import the wrapper and add it in Ngmodule imports
 
-### `npm run build` fails to minify
+```JS
+import { PocAppModule } from "poc-react-components";
+    ...
+    @NgModule({
+        imports: [
+            ...
+            PocAppModule,
+            ...
+        ],
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Add the react component (imported in the above step from the wrapper) to the desired angular component using its selector (<poc-react-app> in our case),
+props can be passed to the React component, using normal Angular syntax
+
+```JS
+-----------dashboard.component.html-----------
+    <poc-app-react
+        [basketItems]="basketItems"
+        (onStateChange)="onStateChange($event)"
+    >
+    </poc-app-react>
+
+```
+
+```JS
+-----------dashboard.component.ts-----------
+  initialState = {};
+  reactState = this.initialState;
+
+  onStateChange(state): void {
+    this.reactState = state;
+  }
+```
+
+Add all the routes that the React app has to the Angular routing module so that they point to an Angular component that hosts the React component (Like the one created in the above step)
+
+```JS
+const routes: Routes = [
+  .....
+  //Dashbord component hosts the react component
+  { path: "dashboard", component: DashboardComponent },
+  .....
+];
+```
