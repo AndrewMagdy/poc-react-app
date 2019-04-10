@@ -1,4 +1,4 @@
-# React components inside an Angular host application POC
+# React Project:  React components inside an Angular host application POC
 
 ## General Notes
 
