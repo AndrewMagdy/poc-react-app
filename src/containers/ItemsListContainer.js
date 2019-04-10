@@ -3,8 +3,9 @@ import ItemsListComponent from "../components/ItemsListComponent";
 import { addItem } from "../actions/basket/basketActions";
 import { loadItems } from "../actions/items/itemsActions";
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   itemsList: state.items.itemsList,
+  angularTestProp: ownProps.angularTestProp
 });
 
 const mapDispatchToProps = dispatch => ({

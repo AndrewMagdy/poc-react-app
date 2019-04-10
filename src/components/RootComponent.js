@@ -18,7 +18,7 @@ class RootComponent extends Component {
 
     return (
       <div>
-        <AppBar position="static">
+        <AppBar position="static" color="default">
           <Toolbar>
             <IconButton
               className={classes.menuButton}

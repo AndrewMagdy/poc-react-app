@@ -30,6 +30,7 @@ class BasketComponent extends Component {
 
   render() {
     const { classes, basketItems, removeItemFromBasket } = this.props;
+
     return (
       <div>
         <RootComponent />

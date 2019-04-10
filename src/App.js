@@ -7,12 +7,8 @@ import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 
 const store = configureStore({});
-class App extends Component {
-  constructor(props) {
-    super(props);
 
-    //store = configureStore(props.initialState || {});
-  }
+class App extends Component {
   componentDidMount() {
     if (this.props.stateChange) {
       store.subscribe(() => this.props.stateChange(store.getState()));
@@ -20,14 +16,49 @@ class App extends Component {
   }
 
   render() {
+    const { angularTestProp } = this.props;
+    //const angularTestProp = "Hello from angular";
+
     return (
       <Provider store={store}>
         <Router>
-          <Route path="/" exact component={ItemsListContainer} />
-          <Route path="/dashboard" component={ItemsListContainer} />
-          <Route path="/basket" exact component={BasketContainer} />
-          <Route path="/items" component={ItemsListContainer} />
-          <Route path="/detail/:x" component={BasketContainer} />
+          <Route
+            path="/"
+            exact
+            component={props => (
+              <ItemsListContainer
+                {...props}
+                angularTestProp={angularTestProp}
+              />
+            )}
+          />
+          <Route
+            path="/dashboard"
+            component={props => (
+              <ItemsListContainer
+                {...props}
+                angularTestProp={angularTestProp}
+              />
+            )}
+          />
+          <Route
+            path="/basket"
+            exact
+            component={props => <BasketContainer {...props} />}
+          />
+          <Route
+            path="/items"
+            component={props => (
+              <ItemsListContainer
+                {...props}
+                angularTestProp={angularTestProp}
+              />
+            )}
+          />
+          <Route
+            path="/detail/:x"
+            component={props => <BasketContainer {...props} />}
+          />
         </Router>
       </Provider>
     );

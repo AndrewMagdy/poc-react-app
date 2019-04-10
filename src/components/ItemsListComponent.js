@@ -7,12 +7,15 @@ import IconButton from "@material-ui/core/IconButton";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import RootComponent from "./RootComponent";
 
 class ItemsListComponent extends Component {
   state = {
     open: false
   };
+
   componentDidMount() {
     const { loadItems } = this.props;
     loadItems();
@@ -30,7 +33,7 @@ class ItemsListComponent extends Component {
     this.setState({ open: false });
   };
   render() {
-    const { classes, itemsList, addItemToBasket } = this.props;
+    const { classes, itemsList, addItemToBasket, angularTestProp } = this.props;
     return (
       <div>
         <RootComponent />
@@ -58,6 +61,11 @@ class ItemsListComponent extends Component {
             </IconButton>
           ]}
         />
+        <Paper className={classes.paper} elevation={1}>
+          <Typography variant="h5" component="h3">
+            Text from the Angular host : {angularTestProp}
+          </Typography>
+        </Paper>
         <GridList cellHeight={400} className={classes.gridList}>
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }} />
           {itemsList &&
@@ -101,6 +109,12 @@ const styles = theme => ({
   },
   icon: {
     color: "rgba(255, 255, 255, 0.54)"
+  },
+  paper: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2
   }
 });
 
