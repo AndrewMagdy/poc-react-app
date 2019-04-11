@@ -16,9 +16,7 @@ class App extends Component {
   }
 
   render() {
-    const { angularTestProp } = this.props;
-    //const angularTestProp = "Hello from angular";
-
+    const { angularTestProp, angularNavigateTo } = this.props;
     return (
       <Provider store={store}>
         <Router>
@@ -29,6 +27,7 @@ class App extends Component {
               <ItemsListContainer
                 {...props}
                 angularTestProp={angularTestProp}
+                angularNavigateTo={angularNavigateTo}
               />
             )}
           />
@@ -38,13 +37,19 @@ class App extends Component {
               <ItemsListContainer
                 {...props}
                 angularTestProp={angularTestProp}
+                angularNavigateTo={angularNavigateTo}
               />
             )}
           />
           <Route
             path="/basket"
             exact
-            component={props => <BasketContainer {...props} />}
+            component={props => (
+              <BasketContainer
+                {...props}
+                angularNavigateTo={angularNavigateTo}
+              />
+            )}
           />
           <Route
             path="/items"
@@ -57,7 +62,12 @@ class App extends Component {
           />
           <Route
             path="/detail/:x"
-            component={props => <BasketContainer {...props} />}
+            component={props => (
+              <BasketContainer
+                {...props}
+                angularNavigateTo={angularNavigateTo}
+              />
+            )}
           />
         </Router>
       </Provider>

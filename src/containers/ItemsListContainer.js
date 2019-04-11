@@ -5,7 +5,8 @@ import { loadItems } from "../actions/items/itemsActions";
 
 const mapStateToProps = (state, ownProps) => ({
   itemsList: state.items.itemsList,
-  angularTestProp: ownProps.angularTestProp
+  angularTestProp: ownProps.angularTestProp,
+  angularNavigateTo: ownProps.angularNavigateTo
 });
 
 const mapDispatchToProps = dispatch => ({

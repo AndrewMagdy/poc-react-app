@@ -29,11 +29,16 @@ class BasketComponent extends Component {
   };
 
   render() {
-    const { classes, basketItems, removeItemFromBasket } = this.props;
+    const {
+      classes,
+      basketItems,
+      removeItemFromBasket,
+      angularNavigateTo
+    } = this.props;
 
     return (
       <div>
-        <RootComponent />
+        <RootComponent angularNavigateTo={angularNavigateTo} />
         <Snackbar
           anchorOrigin={{
             vertical: "top",

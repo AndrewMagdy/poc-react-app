@@ -5,7 +5,8 @@ import { removeItem } from "../actions/basket/basketActions";
 const mapStateToProps = (state, ownProps) => {
   console.log(state, ownProps);
   return {
-    basketItems: state.basket.basketItems
+    basketItems: state.basket.basketItems,
+    angularNavigateTo: ownProps.angularNavigateTo
   };
 };
 

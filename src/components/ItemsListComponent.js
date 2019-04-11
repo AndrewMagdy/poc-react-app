@@ -33,10 +33,16 @@ class ItemsListComponent extends Component {
     this.setState({ open: false });
   };
   render() {
-    const { classes, itemsList, addItemToBasket, angularTestProp } = this.props;
+    const {
+      classes,
+      itemsList,
+      addItemToBasket,
+      angularTestProp,
+      angularNavigateTo
+    } = this.props;
     return (
       <div>
-        <RootComponent />
+        <RootComponent angularNavigateTo={angularNavigateTo} />
         <Snackbar
           anchorOrigin={{
             vertical: "top",

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 class RootComponent extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, angularNavigateTo } = this.props;
     const rootLink = props => <Link to="/" {...props} />;
     const basketLink = props => <Link to="/basket/" {...props} />;
     const angularLink = props => <Link to="/detail/12/" {...props} />;
@@ -36,10 +36,18 @@ class RootComponent extends Component {
             <Button component={basketLink} color="inherit">
               Basket
             </Button>
-
-            <Button component={angularLink} color="inherit">
-              Angular Test
-            </Button>
+            {angularNavigateTo ? (
+              <Button
+                onClick={() => angularNavigateTo("/detail/12")}
+                color="inherit"
+              >
+                Angular Test
+              </Button>
+            ) : (
+              <Button component={angularLink} color="inherit">
+                Angular Test
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </div>
