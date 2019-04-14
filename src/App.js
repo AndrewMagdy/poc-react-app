@@ -11,6 +11,7 @@ const store = configureStore({});
 class App extends Component {
   componentWillMount() {
     if (this.props.stateChange) {
+      this.props.stateChange(store.getState()); //Initial State
       store.subscribe(() => this.props.stateChange(store.getState()));
     }
   }
