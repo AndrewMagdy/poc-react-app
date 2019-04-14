@@ -9,7 +9,7 @@ import configureStore from "./store/configureStore";
 const store = configureStore({});
 
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.stateChange) {
       store.subscribe(() => this.props.stateChange(store.getState()));
     }
