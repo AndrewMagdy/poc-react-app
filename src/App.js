@@ -18,6 +18,7 @@ class App extends Component {
 
   render() {
     const { angularTestProp, angularNavigateTo } = this.props;
+    
     return (
       <Provider store={store}>
         <Router>
